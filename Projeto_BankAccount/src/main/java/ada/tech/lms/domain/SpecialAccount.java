@@ -27,21 +27,13 @@ public class SpecialAccount extends BankAccount {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
             String dataFormatada = LocalDateTime.now().format(formatter);
 
-//            Files.writeString(path, String.format(
-//                    "Data/hora: %s - Valor: R$ %.2f - Transação: DEBIT - Saldo: R$ %.2f \n",
-//                    dataFormatada, -amount, this.getBalance(), StandardCharsets.UTF_8, StandardOpenOption.CREATE,StandardOpenOption.APPEND));
+
             this.listaTransaction.add(new Transaction(LocalDateTime.now(),"DEBIT",-amount,this.getBalance()));
 
             Files.writeString(path, String.format(
                     "Data/hora: %s - Valor: R$ %.2f - Transação: DEBIT - Saldo: R$ %.2f - Número da conta: %s  - Cliente: %s \n",
                     dataFormatada, -amount, this.getBalance(),this.accountNumber,this.owner.getName()), StandardCharsets.UTF_8, StandardOpenOption.CREATE,StandardOpenOption.APPEND);
 
-//        Path path = dir.resolve("teste"+".txt");
-//            Files.writeString(path,LocalDateTime.now().toString()+"\n", StandardCharsets.UTF_8, StandardOpenOption.CREATE,StandardOpenOption.APPEND);
-//            Files.writeString(path,"DEBIT\n", StandardCharsets.UTF_8, StandardOpenOption.CREATE,StandardOpenOption.APPEND);
-//            Files.writeString(path, String.valueOf(-amount)+"\n", StandardCharsets.UTF_8, StandardOpenOption.CREATE,StandardOpenOption.APPEND);
-//            Files.writeString(path, "Saldo após a operação: "+String.valueOf(this.getBalance())+"\n", StandardCharsets.UTF_8, StandardOpenOption.CREATE,StandardOpenOption.APPEND);
-//            this.listaTransaction.add(new Transaction(LocalDateTime.now(),"DEBIT",-amount,this.getBalance()));
         } else {
             throw new IllegalArgumentException("Amount exceeds balance and limit.");
         }
